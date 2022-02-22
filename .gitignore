@@ -7,3 +7,6 @@
 #/package-lock.json
 /tmp
 node_modules
+/customCpqScripts/
+/sfdx-project.json
+/oclif.manifest.json
