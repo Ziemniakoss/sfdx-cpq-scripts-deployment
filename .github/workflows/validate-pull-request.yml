@@ -1,4 +1,4 @@
-name: 'Static analysis and testing'
+name: "Static analysis and testing"
 on:
   pull_request:
   push:
