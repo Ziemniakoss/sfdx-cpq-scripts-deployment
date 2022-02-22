@@ -1,3 +1,4 @@
+const script = `
 /**
  * Called before formula fields are evaluated
  *
@@ -76,3 +77,5 @@ export function isFieldVisible(fieldName, quoteLineModelRecord) {
 export function isEditableVisible(fieldName, quoteLineModelRecord) {
 	return true;
 }
+`;
+export default script;

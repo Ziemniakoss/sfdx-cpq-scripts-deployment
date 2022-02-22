@@ -2,7 +2,9 @@ import { sep } from "path";
 import { existsSync, promises } from "fs";
 import { SfdxCommand } from "@salesforce/command";
 import { getRootSfdxProjectDir } from "../../utils";
-
+import script from "../../scriptsDefaultValues/defaultScript";
+import packageJson from "../../scriptsDefaultValues/defaultPackage";
+import typings from "../../scriptsDefaultValues/defaultTypings";
 interface ScriptConfig {
 	scriptName: string;
 	quoteFields: string[];
@@ -14,8 +16,6 @@ interface ScriptConfig {
 
 export default class Org extends SfdxCommand {
 	public async run(): Promise<unknown> {
-		console.log(this.config);
-		console.log("dirname", __dirname);
 		const scriptName = await this.ux.prompt("Script name:", {
 			required: true,
 		});
@@ -63,44 +63,32 @@ export default class Org extends SfdxCommand {
 		this.ux.stopSpinner();
 	}
 
-	private getResourcePath(name: string): string {
-		return __dirname + sep + "generate-resources" + sep + name;
-	}
 	private async generateExampleScript(dir: string): Promise<unknown> {
 		const fileName = dir + sep + "index.js";
-		const sourceFile = this.getResourcePath("example-script.contents");
-		return promises.copyFile(sourceFile, fileName);
+		return promises.writeFile(fileName, script);
 	}
 
 	private async generateExampleTypingsScript(dir: string): Promise<unknown> {
 		const fileName = dir + sep + "index.d.ts";
-		const sourceFile = this.getResourcePath("example-script.typings");
-		return promises.copyFile(sourceFile, fileName);
+		return promises.writeFile(fileName, typings);
 	}
 
 	private async generateScriptPackageJson(
 		dir: string,
 		config: ScriptConfig
 	): Promise<unknown> {
-		const examplePackageJsonPath = this.getResourcePath("package.json");
-		const packageJson = await promises
-			.readFile(examplePackageJsonPath, "utf-8")
-			.then((packageJsonAsString) => JSON.parse(packageJsonAsString))
-			.then((packageJson) => {
-				packageJson.cpqScriptConfig = {
-					quoteLineFields: config.quoteLineFields,
-					quoteFields: config.quoteFields,
-					quoteLineGroupFields: config.quoteLineGroupFields,
-					consumptionScheduleFields: config.consumptionScheduleFields,
-					consumptionRateFields: config.consumptionRateFields,
-				};
-				return packageJson;
-			});
-
+		const cpqPackageJson = {
+			...packageJson,
+			quoteLineFields: config.quoteLineFields,
+			quoteFields: config.quoteFields,
+			quoteLineGroupFields: config.quoteLineGroupFields,
+			consumptionScheduleFields: config.consumptionScheduleFields,
+			consumptionRateFields: config.consumptionRateFields,
+		};
 		const fileName = dir + sep + "package.json";
 		return promises.writeFile(
 			fileName,
-			JSON.stringify(packageJson, null, 4)
+			JSON.stringify(cpqPackageJson, null, 4)
 		);
 	}
 
