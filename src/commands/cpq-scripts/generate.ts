@@ -68,13 +68,13 @@ export default class Org extends SfdxCommand {
 	}
 	private async generateExampleScript(dir: string): Promise<unknown> {
 		const fileName = dir + sep + "index.js";
-		const sourceFile = this.getResourcePath("example-script.js");
+		const sourceFile = this.getResourcePath("example-script.contents");
 		return promises.copyFile(sourceFile, fileName);
 	}
 
 	private async generateExampleTypingsScript(dir: string): Promise<unknown> {
 		const fileName = dir + sep + "index.d.ts";
-		const sourceFile = this.getResourcePath("example-script.d.ts");
+		const sourceFile = this.getResourcePath("example-script.typings");
 		return promises.copyFile(sourceFile, fileName);
 	}
 
