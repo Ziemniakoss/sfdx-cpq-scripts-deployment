@@ -1,7 +1,7 @@
 {
 	"name": "sfdx-cpq-scripts-deployment",
 	"description": "Deploy cpq scipts with sfdx (unofficial plugin)",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"author": "Ziemniakoss",
 	"bugs": "https://github.com/ziemniakoss/sfdx-cpq-scripts-deployment/issues",
 	"dependencies": {
