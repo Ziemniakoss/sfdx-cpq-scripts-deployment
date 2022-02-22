@@ -67,6 +67,7 @@
 	"repository": "ziemniakoss/sfdx-cpq-scripts-deployment",
 	"scripts": {
 		"build": "tsc -p .",
+		"postbuild": "node postbuild.js",
 		"lint": "eslint src/**/*.ts test/**/*.ts",
 		"postpack": "rm -f oclif.manifest.json",
 		"posttest": "eslint src/**/*.ts test/**/*.ts",
