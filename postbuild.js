@@ -19,7 +19,7 @@ function copyRecursive(src, dest) {
 			copyRecursive(join(src, childItemName), join(dest, childItemName));
 		});
 	} else {
-		console.log("Coping ", src, "to", dest)
+		console.log("Coping ", src, "to", dest);
 		copyFileSync(src, dest);
 	}
 }
