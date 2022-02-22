@@ -2,8 +2,9 @@ import { sep } from "path";
 import { existsSync, promises } from "fs";
 import { SfdxCommand } from "@salesforce/command";
 import { getRootSfdxProjectDir } from "../../utils";
-import {script, packageJson, typings} from "./cpqScriptsTemplates"
-
+import script from "../../scriptsDefaultValues/defaultScript";
+import packageJson from "../../scriptsDefaultValues/defaultPackage";
+import typings from "../../scriptsDefaultValues/defaultTypings";
 interface ScriptConfig {
 	scriptName: string;
 	quoteFields: string[];
@@ -83,7 +84,7 @@ export default class Org extends SfdxCommand {
 			quoteLineGroupFields: config.quoteLineGroupFields,
 			consumptionScheduleFields: config.consumptionScheduleFields,
 			consumptionRateFields: config.consumptionRateFields,
-		}
+		};
 		const fileName = dir + sep + "package.json";
 		return promises.writeFile(
 			fileName,

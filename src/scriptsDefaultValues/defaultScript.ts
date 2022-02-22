@@ -77,21 +77,5 @@ export function isFieldVisible(fieldName, quoteLineModelRecord) {
 export function isEditableVisible(fieldName, quoteLineModelRecord) {
 	return true;
 }
-`
-
-const packageJson = {
-	"description": "Custom cpq script",
-	"dependencies": {
-		"jsforce": "^1.11.0"
-	},
-	"private": true,
-	"author": "Your firm"
-}
-
-
-const typings = `
-//TODO better typings
-type QuoteLineModel = any;
-type QuoteModel = any;
-`
-export {typings, packageJson, script}
+`;
+export default script;
