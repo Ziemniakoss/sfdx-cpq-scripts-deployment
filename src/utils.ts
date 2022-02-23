@@ -2,7 +2,7 @@ import { sep } from "path";
 import { existsSync } from "fs";
 
 const SFDX_PROJECT_DEFINITION_FILE = "sfdx-project.json";
-export const CPQ_SCRIPTS_FOLDER_NAME = "customCpqScripts"
+export const CPQ_SCRIPTS_FOLDER_NAME = "customCpqScripts";
 
 export function getRootSfdxProjectDir(startDir = process.cwd()): string {
 	const checkedDirAsArr = startDir.split(sep);
@@ -25,4 +25,3 @@ export interface ScriptConfig {
 	consumptionScheduleFields: string[];
 	consumptionRateFields: string[];
 }
-

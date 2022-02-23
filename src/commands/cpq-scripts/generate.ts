@@ -6,7 +6,6 @@ import script from "../../scriptsDefaultValues/defaultScript";
 import packageJson from "../../scriptsDefaultValues/defaultPackage";
 import typings from "../../scriptsDefaultValues/defaultTypings";
 
-
 export default class Org extends SfdxCommand {
 	public async run(): Promise<unknown> {
 		const scriptName = await this.ux.prompt("Script name:", {
@@ -78,7 +77,7 @@ export default class Org extends SfdxCommand {
 				quoteLineGroupFields: config.quoteLineGroupFields,
 				consumptionScheduleFields: config.consumptionScheduleFields,
 				consumptionRateFields: config.consumptionRateFields,
-			}
+			},
 		};
 		const fileName = dir + sep + "package.json";
 		return promises.writeFile(

@@ -36,4 +36,4 @@ sfdx cpq-scripts:deploy --all
 
 ## TODO
 
-- compile js to reduce size?
+-   compile js to reduce size?
