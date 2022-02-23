@@ -54,11 +54,29 @@ export default class Deploy extends SfdxCommand {
 				)
 			)
 		);
-		return this.org
-			.getConnection()
-			.sobject("SBQQ__CustomScript__c")
-			.upsert(customScripts, "Id")
-			.then((result) => console.log(JSON.stringify(result)));
+		const scriptsToUpdate = customScripts.filter(
+			(script) => script.Id != null
+		);
+		const dmlPromises = [];
+		if (scriptsToUpdate.length > 0) {
+			const updatePromise = this.org
+				.getConnection()
+				.sobject("SBQQ__CustomScript__c")
+				.update(scriptsToUpdate, { allOrNone: true });
+			dmlPromises.push(updatePromise);
+		}
+
+		const scriptsToInsert = customScripts.filter(
+			(script) => script.Id == null
+		);
+		if (scriptsToInsert.length > 0) {
+			const insertPromise = this.org
+				.getConnection()
+				.sobject("SBQQ__CustomScript__c")
+				.insert(scriptsToInsert);
+			dmlPromises.push(insertPromise);
+		}
+		return Promise.all(dmlPromises);
 	}
 
 	private async prepareCustomScriptSobject(
