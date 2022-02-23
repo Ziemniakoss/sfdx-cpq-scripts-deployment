@@ -1,18 +1,11 @@
 import { sep } from "path";
 import { existsSync, promises } from "fs";
 import { SfdxCommand } from "@salesforce/command";
-import { getRootSfdxProjectDir } from "../../utils";
+import { getRootSfdxProjectDir, ScriptConfig } from "../../utils";
 import script from "../../scriptsDefaultValues/defaultScript";
 import packageJson from "../../scriptsDefaultValues/defaultPackage";
 import typings from "../../scriptsDefaultValues/defaultTypings";
-interface ScriptConfig {
-	scriptName: string;
-	quoteFields: string[];
-	quoteLineGroupFields: string[];
-	quoteLineFields: string[];
-	consumptionScheduleFields: string[];
-	consumptionRateFields: string[];
-}
+
 
 export default class Org extends SfdxCommand {
 	public async run(): Promise<unknown> {
@@ -79,11 +72,13 @@ export default class Org extends SfdxCommand {
 	): Promise<unknown> {
 		const cpqPackageJson = {
 			...packageJson,
-			quoteLineFields: config.quoteLineFields,
-			quoteFields: config.quoteFields,
-			quoteLineGroupFields: config.quoteLineGroupFields,
-			consumptionScheduleFields: config.consumptionScheduleFields,
-			consumptionRateFields: config.consumptionRateFields,
+			cpqScriptConfig: {
+				quoteLineFields: config.quoteLineFields,
+				quoteFields: config.quoteFields,
+				quoteLineGroupFields: config.quoteLineGroupFields,
+				consumptionScheduleFields: config.consumptionScheduleFields,
+				consumptionRateFields: config.consumptionRateFields,
+			}
 		};
 		const fileName = dir + sep + "package.json";
 		return promises.writeFile(
