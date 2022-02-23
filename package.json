@@ -56,8 +56,8 @@
 		"commands": "./lib/commands",
 		"bin": "sfdx",
 		"topics": {
-			"hello": {
-				"description": "Commands to say hello."
+			"cpq-scripts": {
+				"description": "Manage cpq custom scripts"
 			}
 		},
 		"devPlugins": [

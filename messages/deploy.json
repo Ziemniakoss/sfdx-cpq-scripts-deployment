@@ -1,0 +1,6 @@
+{
+	"description": "Deploy cpq script",
+	"flag:all": "Deploy all scripts",
+	"flag:wait": "Wait for compilation of scripts",
+	"flag:scripts": "Scripts names separated by coma"
+}

@@ -6,6 +6,7 @@
 /lib
 #/package-lock.json
 /tmp
+.sfdx
 node_modules
 /customCpqScripts/
 /sfdx-project.json
