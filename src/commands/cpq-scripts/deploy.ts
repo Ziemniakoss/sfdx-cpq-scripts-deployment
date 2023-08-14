@@ -4,7 +4,7 @@ import { promises } from "fs";
 import { join } from "path";
 import { CPQ_SCRIPTS_FOLDER_NAME, ScriptConfig } from "../../utils";
 
-Messages.importMessagesDirectory(__dirname); //TODO czy potrzebne
+Messages.importMessagesDirectory(__dirname);
 
 const messages = Messages.loadMessages("sfdx-cpq-scripts-deployment", "deploy");
 
@@ -26,12 +26,6 @@ export default class Deploy extends SfdxCommand {
 		all: flags.boolean({
 			description: messages.getMessage("flag:all"),
 			char: "a",
-			hidden: true, //TODO
-		}),
-		wait: flags.boolean({
-			description: messages.getMessage("flag:wait"),
-			char: "w",
-			hidden: true, //TODO
 		}),
 		scripts: flags.string({
 			description: messages.getMessage("flag:scripts"),
@@ -45,6 +39,10 @@ export default class Deploy extends SfdxCommand {
 		const scriptNames: string[] = this.flags.scripts
 			.split(",")
 			.map((scriptName) => scriptName.trim());
+		this.ux.startSpinner(
+			"Deploying CPQ scripts",
+			"fetching existing CPQ scripts"
+		);
 		const scriptNameToId = await this.getExistingScriptsIds(scriptNames);
 		const customScripts = await Promise.all(
 			scriptNames.map((scriptName) =>
@@ -76,6 +74,7 @@ export default class Deploy extends SfdxCommand {
 				.insert(scriptsToInsert);
 			dmlPromises.push(insertPromise);
 		}
+		this.ux.setSpinnerStatus("Upserting records");
 		return Promise.all(dmlPromises);
 	}
 
@@ -98,7 +97,7 @@ export default class Deploy extends SfdxCommand {
 				scriptConfig.consumptionScheduleFields?.join("\n"),
 			SBQQ__GroupFields__c: scriptConfig.quoteLineGroupFields?.join("\n"),
 			SBQQ__QuoteFields__c: scriptConfig.quoteFields?.join("\n"),
-			SBQQ__QuoteLineFields__c: scriptConfig.quoteFields?.join("\n"),
+			SBQQ__QuoteLineFields__c: scriptConfig.quoteLineFields?.join("\n"),
 		};
 	}
 
