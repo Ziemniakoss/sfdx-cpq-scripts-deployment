@@ -1,4 +1,6 @@
-# WIP sfdx-cpq-scripts-deployment
+# sfdx-cpq-scripts-deployment
+
+**Warning**! This plugin is in WIP stage and can fail on some occasions.
 
 Unofficial plugin for custom cpq scrips management.
 
@@ -25,15 +27,5 @@ sfdx cpq-scripts:generate
 Run:
 
 ```cmd
-sfdx cpq-scripts:deploy nameOfscript otherScript andSoOn
+sfdx cpq-scripts:deploy -s nameOfscript
 ```
-
-To deploy all scripts, use
-
-```cmd
-sfdx cpq-scripts:deploy --all
-```
-
-## TODO
-
--   compile js to reduce size?
