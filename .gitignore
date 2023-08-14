@@ -11,3 +11,4 @@ node_modules
 /customCpqScripts/
 /sfdx-project.json
 /oclif.manifest.json
+yarn.lock
